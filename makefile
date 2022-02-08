@@ -6,7 +6,7 @@ run:
 
 build: includes/json.hpp
 	mkdir -p ${path-bin}
-	g++ -o ${path-bin}/desafio5 ./src/main.cpp ./src/company.cpp
+	g++ -pthread -o ${path-bin}/desafio5 ./src/main.cpp ./src/company.cpp
 
 includes/json.hpp:
 	curl -o ./includes/json.hpp https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp

@@ -12,11 +12,48 @@ Company::Company(string path) {
     FILE* file = fopen(fileName.c_str(), "rb");
     char readBuffer[1024];
     FileReadStream jsonRaw(file, readBuffer, sizeof(readBuffer));
-    Document json;
-    json.ParseStream(jsonRaw);
+    // Document json;
+    // json.ParseStream(jsonRaw);
+    this->json.ParseStream(jsonRaw);
     fclose(file);
 
-    for (const auto& employee : json["funcionarios"].GetArray()) {
+    // for (const auto& employee : json["funcionarios"].GetArray()) {
+    //     string name = employee["nome"].GetString();
+    //     string sobrenome = employee["sobrenome"].GetString();
+    //     float salario = employee["salario"].GetFloat();
+    //     string area = employee["area"].GetString();
+
+    //     Employee emp = {
+    //         name,
+    //         sobrenome,
+    //         salario,
+    //         area,
+    //     };
+    //     this->employeeBySalary[salario].push_back(emp);
+    //     this->employeeByLastName[sobrenome].push_back(emp);
+    //     this->employeeByArea[area].push_back(emp);
+    //     this->salaryByArea[area].push_back(salario);
+    //     this->salaryAcumulatorByArea[area] += salario;
+    //     this->salaryAcumulator += salario;
+    //     this->highSalaryByLastName[sobrenome] =
+    //         (salario > this->highSalaryByLastName[sobrenome])
+    //             ? salario
+    //             : this->highSalaryByLastName[sobrenome];
+    //     this->totalEmployeeByArea[area] += 1;
+    //     this->totalEmployeeByLastName[sobrenome] += 1;
+    //     this->totalEmployee += 1;
+    // }
+    // for (const auto& area : json["areas"].GetArray()) {
+    //     string code = area["codigo"].GetString();
+    //     string name = area["nome"].GetString();
+    //     this->areaNameByCode[code] = name;
+    // }
+};
+
+// Parser data
+
+void Company::getQuery1() {
+    for (const auto& employee : this->json["funcionarios"].GetArray()) {
         string name = employee["nome"].GetString();
         string sobrenome = employee["sobrenome"].GetString();
         float salario = employee["salario"].GetFloat();
@@ -29,20 +66,52 @@ Company::Company(string path) {
             area,
         };
         this->employeeBySalary[salario].push_back(emp);
-        this->employeeByLastName[sobrenome].push_back(emp);
-        this->employeeByArea[area].push_back(emp);
-        this->salaryByArea[area].push_back(salario);
-        this->salaryAcumulatorByArea[area] += salario;
         this->salaryAcumulator += salario;
+        this->totalEmployee += 1;
+    }
+};
+
+void Company::getQuery2() {
+    for (const auto& employee : this->json["funcionarios"].GetArray()) {
+        string name = employee["nome"].GetString();
+        string sobrenome = employee["sobrenome"].GetString();
+        float salario = employee["salario"].GetFloat();
+        string area = employee["area"].GetString();
+        Employee emp = {
+            name,
+            sobrenome,
+            salario,
+            area,
+        };
+        this->employeeByArea[area].push_back(emp);
+        this->salaryAcumulatorByArea[area] += salario;
+        this->totalEmployeeByArea[area] += 1;
+    }
+};
+
+void Company::getQuery4() {
+    for (const auto& employee : this->json["funcionarios"].GetArray()) {
+        string name = employee["nome"].GetString();
+        string sobrenome = employee["sobrenome"].GetString();
+        float salario = employee["salario"].GetFloat();
+        string area = employee["area"].GetString();
+        Employee emp = {
+            name,
+            sobrenome,
+            salario,
+            area,
+        };
+        this->employeeByLastName[sobrenome].push_back(emp);
+        this->totalEmployeeByLastName[sobrenome] += 1;
         this->highSalaryByLastName[sobrenome] =
             (salario > this->highSalaryByLastName[sobrenome])
                 ? salario
                 : this->highSalaryByLastName[sobrenome];
-        this->totalEmployeeByArea[area] += 1;
-        this->totalEmployeeByLastName[sobrenome] += 1;
-        this->totalEmployee += 1;
     }
-    for (const auto& area : json["areas"].GetArray()) {
+};
+
+void Company::getAreaNameByCode() {
+    for (const auto& area : this->json["areas"].GetArray()) {
         string code = area["codigo"].GetString();
         string name = area["nome"].GetString();
         this->areaNameByCode[code] = name;
