@@ -8,14 +8,19 @@ using namespace rapidjson;
 
 // Constructor
 Company::Company(string path) {
-    string fileName = path;
-    FILE* file = fopen(fileName.c_str(), "rb");
-    char readBuffer[1024];
-    FileReadStream jsonRaw(file, readBuffer, sizeof(readBuffer));
-    // Document json;
-    // json.ParseStream(jsonRaw);
-    this->json.ParseStream(jsonRaw);
-    fclose(file);
+    // string fileName = path;
+    // FILE* file = fopen(fileName.c_str(), "rb");
+    // char readBuffer[1024];
+    // FileReadStream jsonRaw(file, readBuffer, sizeof(readBuffer));
+    // // Document json;
+    // // json.ParseStream(jsonRaw);
+    // this->json.ParseStream(jsonRaw);
+    // fclose(file);
+
+    ifstream file(path);
+    stringstream content;
+    content << file.rdbuf();
+    this->json.Parse(content.str().c_str());
 
     // for (const auto& employee : json["funcionarios"].GetArray()) {
     //     string name = employee["nome"].GetString();

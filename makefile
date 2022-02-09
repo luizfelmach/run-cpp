@@ -4,12 +4,10 @@ path-json=./funcionarios/Funcionarios-50K.json
 run:
 	@${path-bin}/desafio5 ${path-json}
 
-build: includes/json.hpp
+build: 
 	mkdir -p ${path-bin}
 	g++ -pthread -o ${path-bin}/desafio5 ./src/main.cpp ./src/company.cpp
 
-includes/json.hpp:
-	curl -o ./includes/json.hpp https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp
 
 url-funcionarios-json= \
 	http://www.bcampos.com/Funcionarios-10K.json.7z \
