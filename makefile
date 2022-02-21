@@ -16,7 +16,7 @@ url-funcionarios-json= \
 	http://www.bcampos.com/Funcionarios-250K.json.7z \
 	http://www.bcampos.com/Funcionarios-500K.json.7z \
 	http://www.bcampos.com/Funcionarios-1M.json.7z \
-	# http://www.bcampos.com/Funcionarios-2M.json.7z \
+	http://www.bcampos.com/Funcionarios-2M.json.7z \
 	# http://www.bcampos.com/Funcionarios-3M.json.7z \
 	# http://www.bcampos.com/Funcionarios-5M.json.7z \
 	# http://www.bcampos.com/Funcionarios-12M.json.7z \
